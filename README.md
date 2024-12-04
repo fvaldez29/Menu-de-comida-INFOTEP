@@ -12,7 +12,7 @@ El objetivo principal es proporcionar una herramienta que simplifique la planifi
 
 - **Frontend:**
   - EJS, CSS3
-  - Bootstrap 5.3
+  - TailwindCss
   - JavaScript (vanilla)
 
 - **Backend:**

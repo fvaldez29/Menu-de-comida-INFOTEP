@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url'
 import userRoutes from './router/user.js'
 import menuRouter from './router/menu.js'
 import mongoose from 'mongoose'
+import viewRouter from './router/viewer.js'
 
 const app = express()
 
@@ -31,13 +32,13 @@ mongoose.connect(process.env.MONGO_URL)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.set('views', path.join(__dirname, '/views'));
+app.set('views', path.join(__dirname, '/view'));
 app.use(express.static(path.join(__dirname, '/public')));
 app.set('view engine', 'ejs');
 
 
 //Visual Route
-
+app.use('/', viewRouter)
 
 //Backend Route
 app.use('/api/users', userRoutes)

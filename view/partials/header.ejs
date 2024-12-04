@@ -1,0 +1,21 @@
+<div class="logo">
+        <a href="/">
+            <img src="" alt="">
+        </a> 
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/menu">Menú</a></li>
+            <li><a href="/about">Sobre nosotros</a></li>
+            <% if (user) { %> 
+                <li><a href="/profile">Mi perfil</a></li>
+                <li><a href="/logout">Cerrar sesión</a></li>
+            <% } else { %>
+                <li><a href="/login">Iniciar sesión</a></li>
+                <li><a href="/register">Registrarse</a></li>
+            <% } %>
+        </ul>
+    </nav>
+</header>
+
