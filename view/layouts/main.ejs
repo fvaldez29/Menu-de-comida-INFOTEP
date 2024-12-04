@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/output.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- FontAwesome -->
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body class="bg-gray-200 dark:bg-gray-900">
+
+    <%- include('../partials/header.ejs') %>
+
+    <main class="bg-gray-100 dark:bg-gray-700 min-h-screen py-8 px-4">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold text-blue-900 dark:text-white mb-6">
+                <%= title %>
+            </h1>
+    
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
+                <!-- Aquí va el contenido principal dinámico -->
+                <%- body %>
+            </div>
+        </div>
+    </main>
+    
+
+    <%- include('../partials/footer.ejs') %>
+    
+    <script src="/js/utility.js"></script>
+
+</body>
+
+</html>

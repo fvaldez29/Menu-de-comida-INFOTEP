@@ -48,8 +48,29 @@ viewRouter.get('/list-users', (req, res) => {
 
 // USER ROUTE
 
-viewRouter.get('/')
+viewRouter.get('/market', (req, res) => {
+    res.render('pages/market', {
+        title: 'Market',
+        user: req.user,
+        layout: 'layouts/main'
+    })
+})
 
+viewRouter.get('/market/profile', (req, res) => {
+    res.render('pages/profile', {
+        title: "Market - Profile",
+        user: req.user,
+        layout: 'layouts/main'
+    })
+})
+
+viewRouter.get('/market/log', (req, res) => {
+    res.render('pages/historial', {
+        title: "Market - Historial",
+        user: req.user,
+        layout: 'layouts/main'
+    })
+})
 
 
 

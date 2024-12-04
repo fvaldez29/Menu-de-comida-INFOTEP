@@ -1,44 +1,42 @@
-const registerForm = document.getElementById("registerForm");
+document.addEventListener('DOMContentLoaded', () => {
+    const registerForm = document.getElementById('registerForm');
+    const feedback = document.getElementById('feedback');
 
-registerForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Prevenir que se recargue la página
 
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
+        // Crear un objeto con los datos del formulario
+        const formData = new FormData(registerForm);
+        const data = Object.fromEntries(formData.entries());
+        console.log(data)
+        try {
+            // Hacer la petición al backend
+            const response = await fetch('/api/users/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
 
-    
-    if (password !== confirmPassword) {
-        alert('Las contraseñas no coinciden.');
-        return; 
-    }
+            const result = await response.json();
+            console.log(result)
 
- 
-    const data = Object.fromEntries(new FormData(e.target));
+            if (response.ok) {
+                // Si el registro fue exitoso
+                feedback.textContent = 'Registro exitoso. Redirigiendo...';
+                feedback.classList.remove('text-red-500');
+                feedback.classList.add('text-green-500');
 
-    const port = 8080 || 3000; 
-
-    try {
-        const response = await fetch(`http://localhost:${port}/api/users/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-            
-            localStorage.setItem('authToken', result.token);
-            localStorage.setItem('role', result.role)
-
-            alert("Registro exitoso! Redirigiendo a la página de login.");
-            window.location.href = "/login";
-        } else {
-            alert(result.message || "Hubo un error, por favor intente nuevamente.");
+                // Redirigir después de unos segundos
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 2000);
+            } else {
+                // Si hubo un error
+                feedback.textContent = result.message || 'Error al registrar el usuario.';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            feedback.textContent = 'Ocurrió un error al enviar los datos.';
         }
-    } catch (error) {
-        console.error("Error de registro:", error);
-        alert("Error al registrar, intente nuevamente más tarde.");
-    }
+    });
 });
