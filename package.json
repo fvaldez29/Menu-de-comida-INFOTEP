@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "El objetivo principal es proporcionar una herramienta que simplifique la planificación y elección de las comidas, optimizando el tiempo y asegurando que cada profesor pueda personalizar su menú según sus preferencias.",
   "main": "server.js",
+  "type":"module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --watch server.js"
+    "dev": "node --watch server.js"
   },
   "repository": {
     "type": "git",
@@ -30,5 +31,8 @@
     "mongoose": "^8.8.3",
     "morgan": "^1.10.0",
     "nodemailer": "^6.9.16"
+  },
+  "devDependencies": {
+    "standard": "^17.1.2"
   }
 }
