@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'App Protegida' %></title>
+    <link rel="stylesheet" href="/css/output.css">
+</head>
+<body class="bg-gray-100 dark:bg-gray-900">
+    <!-- Encabezado -->
+    <%- include('../partials/header.ejs') %>
+
+        <main class="flex-1 p-8 bg-gray-100 dark:bg-gray-900 h-screen">
+            <%- body %>
+        </main>
+    </div>
+
+    <!-- Pie de Página -->
+    <%- include('../partials/footer.ejs') %>
+    <script src="/js/utility.js"></script>
+</body>
+</html>

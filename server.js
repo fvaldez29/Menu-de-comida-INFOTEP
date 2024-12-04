@@ -9,12 +9,14 @@ import userRoutes from './router/user.js'
 import menuRouter from './router/menu.js'
 import mongoose from 'mongoose'
 import viewRouter from './router/viewer.js'
+import expressLayouts from 'express-ejs-layouts'
 
 const app = express()
 
 
 //MiddleWare 
 app.disable('x-powered-by')
+app.use(expressLayouts)
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(helmet())
@@ -31,10 +33,11 @@ mongoose.connect(process.env.MONGO_URL)
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 app.set('views', path.join(__dirname, '/view'));
 app.use(express.static(path.join(__dirname, '/public')));
 app.set('view engine', 'ejs');
+app.set('layouts', 'layouts/protected')
+app.set('layouts', 'layouts/auth')
 
 
 //Visual Route
