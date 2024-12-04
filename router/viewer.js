@@ -10,5 +10,8 @@ viewRouter.get('/register', (req, res) => {
     res.render('pages/register', {title: 'Register Form'})
 })
 
+viewRouter.get('/reset-password', (req, res) => {
+    res.render('pages/reset-password', { title: 'Reset password' })
+})
 
 export default viewRouter
