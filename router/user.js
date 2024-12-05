@@ -1,5 +1,6 @@
 import {Router} from 'express';
 import {UserController} from '../controller/user.js';
+import authToken from '../middleware/authToken.js';
 
 const userRoutes = Router();
 
@@ -9,10 +10,13 @@ userRoutes.post('/register', UserController.createUser);
 // Ruta para login de un usuario
 userRoutes.post('/login', UserController.loginUser);
 
-// Otras rutas como obtener usuarios, actualizar y eliminar usuarios
-userRoutes.get('/', UserController.getAllUsers);
-userRoutes.get('/:id', UserController.getUserById);
-userRoutes.put('/:id', UserController.updateUser);
-userRoutes.delete('/:id', UserController.deleteUser);
+// Ruta para reset password
+userRoutes.post('/reset-password', UserController.resetPassword)
+
+
+userRoutes.get('/', authToken,  UserController.getAllUsers);
+userRoutes.get('/:id', authToken, UserController.getUserById);
+userRoutes.put('/:id', authToken, UserController.updateUser);
+userRoutes.delete('/:id', authToken, UserController.deleteUser);
 
 export default userRoutes;

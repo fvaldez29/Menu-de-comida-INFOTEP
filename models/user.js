@@ -1,49 +1,60 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
 
-// Esquema de Usuario
 const userSchema = new mongoose.Schema({
-    username: {
+    name: {
         type: String,
         required: true,
-        unique: true,  // Asegura que el nombre de usuario sea único
+        trim: true
+    },
+    lastName: {
+        type: String,
+        required: true,
         trim: true
     },
     email: {
         type: String,
         required: true,
-        unique: true,  // Asegura que el correo electrónico sea único
-        match: [/.+\@.+\..+/, 'Por favor, ingrese un correo válido']
+        unique: true,
+        trim: true,
+        match: [/^\S+@\S+\.\S+$/, 'Por favor ingresa un correo válido.']
+    },
+    teacherId: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
+    },
+    cedula: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true
+    },
+    genre: {
+        type: String,
+        required: true,
+        enum: ['Masculino', 'Femenino']
+    },
+    department: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    role: {
+        type: String,
+        required: true,
+        enum: ['facilitador', 'admin']
     },
     password: {
         type: String,
         required: true,
-        minlength: 6  // Mínimo 6 caracteres para la contraseña
+        minlength: 8
     },
-    role: {
-        type: String,
-        enum: ['admin', 'teacher'],
-        default: 'teacher'  // El valor predeterminado es 'teacher'
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
-
-// Encriptar la contraseña antes de guardarla
-userSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();  // Si la contraseña no ha sido modificada, no hace nada
-
-    try {
-        const salt = await bcrypt.genSalt(10);  // Generar un salt con un costo de 10
-        this.password = await bcrypt.hash(this.password, salt);  // Encriptar la contraseña
-        next();
-    } catch (error) {
-        next(error);
-    }
-});
-
-// Método para comparar la contraseña
-userSchema.methods.matchPassword = async function(enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password);
-};
 
 export const User = mongoose.model('User', userSchema);
 

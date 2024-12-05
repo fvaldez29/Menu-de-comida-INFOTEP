@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { User } from '../models/user.js'
 import bcrypt from 'bcrypt'
+import authToken from '../middleware/authToken.js'
 
 
 const viewRouter = Router()
@@ -22,7 +23,7 @@ viewRouter.get('/reset-password', (req, res) => {
 
 // ADMIN ROUTE
 
-viewRouter.get('/admin', (req, res) => {
+viewRouter.get('/admin',  (req, res) => {
     res.render('pages/dashboard', {
         title: 'Protected - admin',
         user: req.user, 
